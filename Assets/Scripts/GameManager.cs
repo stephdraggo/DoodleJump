@@ -2,17 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace DoodleJump
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        
-    }
+        #region Variables
+        public static GameManager instance = null;
 
-    // Update is called once per frame
-    void Update()
-    {
         
+        #endregion
+        #region Awake - set up instance
+        void Awake()
+        {
+            if (instance == null) //if the instance doesn't exist
+            {
+                instance = this; //set this as instance
+            }
+            else if (instance != this) //if there is an instance but it isn't this object
+            {
+                Destroy(gameObject); //delete this
+                return; //exit code early
+            }
+            DontDestroyOnLoad(gameObject); //always be able to access the original instance
+        }
+        #endregion
+        #region Start
+        void Start()
+        {
+           
+
+            
+        }
+        #endregion
+        #region Update
+        void Update()
+        {
+
+        }
+        #endregion
+        #region Functions
+        public void GameOver(float _heightAchieved)
+        {
+
+        }
+
+        
+        #endregion
     }
 }
