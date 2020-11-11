@@ -1005,6 +1005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 226279090}
   - component: {fileID: 226279089}
+  - component: {fileID: 226279091}
   m_Layer: 0
   m_Name: ScriptHandler
   m_TagString: Untagged
@@ -1028,6 +1029,7 @@ MonoBehaviour:
   - {fileID: 7522029118092243716, guid: 1f876fd69db981642a713a31ea63e648, type: 3}
   - {fileID: 5767637372639421626, guid: ae7c30a641c26734dabab4c9dbd40ca3, type: 3}
   trunkHeight: 0
+  trunkWidth: 0
   trunks: []
   lastTrunk: {fileID: 0}
 --- !u!4 &226279090
@@ -1044,6 +1046,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226279091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226279088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711d4d6baf9f983489034412da336231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  branchLeftPrefab: {fileID: 611273546404701294, guid: 3718f7c6086378c49920ecbbb5c3a149,
+    type: 3}
+  branchRightPrefab: {fileID: 4832658216788307750, guid: 759be2959b47b2a44aa04d1a492b5130,
+    type: 3}
+  branches: []
 --- !u!1 &230814287
 GameObject:
   m_ObjectHideFlags: 0

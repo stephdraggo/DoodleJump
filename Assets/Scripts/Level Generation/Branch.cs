@@ -7,17 +7,30 @@ namespace DoodleJump.Generation
     public class Branch : MonoBehaviour
     {
         //remember bounciness
+        #region Variables
+        [SerializeField, Tooltip("The trunk segment this branch belongs to.")]
+        private GameObject trunk;
+        #endregion
+        #region Properties
 
-        // Start is called before the first frame update
+        #endregion
+        #region Start
         void Start()
         {
 
         }
-
-        // Update is called once per frame
+        #endregion
+        #region Update
         void Update()
         {
 
         }
+        #endregion
+        #region Functions
+        public void AssignToBranch(GameObject _trunk)
+        {
+            trunk = _trunk;
+        }
+        #endregion
     }
 }
