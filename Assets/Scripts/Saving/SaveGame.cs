@@ -6,33 +6,34 @@ namespace DoodleJump.Saving
 {
     public class SaveGame : MonoBehaviour
     {
-        public GameData game = new GameData(Scores.instance);
+        public GameData game;
         public List<GameData> savedGames;
         private void Awake()
         {
+            game = new GameData(Scores.instance);
             GameData.current = game;
         }
         private void Update()
         {
             savedGames = SaveLoad.savedGames;
         }
+        public void SaveButton()
+        {
+            SaveLoad.Save(GameData.current);
+        }
+        public void LoadButton()
+        {
+            SaveLoad.Load();
+        }
         private void OnGUI()
         {
             if (GUILayout.Button("Save"))
             {
-                SaveLoad.Save(GameData.current);
-                if (game.highScores.Length == 0)
-                {
-                    Debug.Log("no highscores");
-                }
-                for (int i = 0; i < game.highScores.Length; i++)
-                {
-                    Debug.Log(game.highScores[i]);
-                }
+                SaveButton();
             }
             if (GUILayout.Button("Load"))
             {
-                SaveLoad.Load();
+                LoadButton();
             }
             foreach (GameData _game in SaveLoad.savedGames)
             {

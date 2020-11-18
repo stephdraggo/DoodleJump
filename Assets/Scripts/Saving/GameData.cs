@@ -7,8 +7,8 @@ namespace DoodleJump.Saving
     public class GameData
     {
         #region Variables
-        public static GameData current;
-        public Scores.scoreSet[] highScores;
+        public static GameData current; //for the current game save:
+        public Scores.scoreSet[] highScores; //the highscores
         #endregion
         #region Constructors
         public GameData()
