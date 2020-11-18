@@ -995,74 +995,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220173099}
   m_CullTransparentMesh: 0
---- !u!1 &226279088
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 226279090}
-  - component: {fileID: 226279089}
-  - component: {fileID: 226279091}
-  m_Layer: 0
-  m_Name: ScriptHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &226279089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226279088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 498fea6182ed5ef47892c4a0b2b6957a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trunkPrefabs:
-  - {fileID: 7522029118092243716, guid: 1f876fd69db981642a713a31ea63e648, type: 3}
-  - {fileID: 5767637372639421626, guid: ae7c30a641c26734dabab4c9dbd40ca3, type: 3}
-  trunkHeight: 0
-  trunkWidth: 0
-  trunks: []
-  lastTrunk: {fileID: 0}
---- !u!4 &226279090
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226279088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &226279091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226279088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 711d4d6baf9f983489034412da336231, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  branchLeftPrefab: {fileID: 611273546404701294, guid: 3718f7c6086378c49920ecbbb5c3a149,
-    type: 3}
-  branchRightPrefab: {fileID: 4832658216788307750, guid: 759be2959b47b2a44aa04d1a492b5130,
-    type: 3}
-  branches: []
 --- !u!1 &230814287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,6 +1892,9 @@ GameObject:
   - component: {fileID: 547067473}
   - component: {fileID: 547067472}
   - component: {fileID: 547067471}
+  - component: {fileID: 547067476}
+  - component: {fileID: 547067475}
+  - component: {fileID: 547067474}
   m_Layer: 0
   m_Name: ScriptManager
   m_TagString: Untagged
@@ -2005,6 +1940,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &547067474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547067470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d4237d804066444802fd8a4938bd9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game:
+    highScores: []
+  savedGames: []
+--- !u!114 &547067475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547067470}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711d4d6baf9f983489034412da336231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  branchLeftPrefab: {fileID: 611273546404701294, guid: 3718f7c6086378c49920ecbbb5c3a149,
+    type: 3}
+  branchRightPrefab: {fileID: 4832658216788307750, guid: 759be2959b47b2a44aa04d1a492b5130,
+    type: 3}
+  branches: []
+--- !u!114 &547067476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547067470}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498fea6182ed5ef47892c4a0b2b6957a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trunkPrefabs:
+  - {fileID: 7522029118092243716, guid: 1f876fd69db981642a713a31ea63e648, type: 3}
+  - {fileID: 5767637372639421626, guid: ae7c30a641c26734dabab4c9dbd40ca3, type: 3}
+  trunkHeight: 0
+  trunkWidth: 0
+  trunks: []
+  lastTrunk: {fileID: 0}
 --- !u!1 &608511129
 GameObject:
   m_ObjectHideFlags: 0

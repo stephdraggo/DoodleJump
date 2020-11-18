@@ -21,6 +21,14 @@ namespace DoodleJump.Saving
             if (GUILayout.Button("Save"))
             {
                 SaveLoad.Save(GameData.current);
+                if (game.highScores.Length == 0)
+                {
+                    Debug.Log("no highscores");
+                }
+                for (int i = 0; i < game.highScores.Length; i++)
+                {
+                    Debug.Log(game.highScores[i]);
+                }
             }
             if (GUILayout.Button("Load"))
             {

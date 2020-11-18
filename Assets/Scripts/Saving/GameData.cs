@@ -18,6 +18,7 @@ namespace DoodleJump.Saving
         public GameData(Scores _scores)
         {
             highScores = _scores.HighScores;
+            
         }
         #endregion
     }
