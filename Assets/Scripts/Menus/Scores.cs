@@ -8,6 +8,7 @@ public class Scores : MonoBehaviour
     public static Scores instance;
     private scoreSet[] highScores;
 
+    [System.Serializable]
     public struct scoreSet
     {
         public int score;
@@ -43,6 +44,7 @@ public class Scores : MonoBehaviour
         }
 
         highScores = OrderScores(highScores); //call score ordering function on the current scoreset array
+        
     }
     #endregion
     #region Start

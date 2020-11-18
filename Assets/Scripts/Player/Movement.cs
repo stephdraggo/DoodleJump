@@ -53,7 +53,7 @@ namespace DoodleJump.Player
             //GameManager.instance.GameOver(currentHeightAchieved);
 
             //flip sprite based on input
-            if (Input.GetButton("Left"))
+            //if (Input.GetButton("left"))
             {
 
             }
