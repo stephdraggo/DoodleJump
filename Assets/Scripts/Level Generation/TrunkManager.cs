@@ -13,7 +13,7 @@ namespace DoodleJump.Generation
         private GameObject[] trunkPrefabs;
 
         [SerializeField, Tooltip("Get the dimensions of the trunk from the disabled collider.")]
-        private float trunkHeight,trunkWidth;
+        private float trunkHeight, trunkWidth;
 
         [SerializeField, Tooltip("List of trunk objects in game.")]
         private List<GameObject> trunks;
@@ -23,6 +23,8 @@ namespace DoodleJump.Generation
         #endregion
         #region Properties
         public float TrunkWidth { get => trunkWidth; }
+        public float TrunkHeight { get => trunkHeight; }
+        public float TreeTop { get => lastTrunk.transform.position.y + trunkHeight / 2; }
         #endregion
         #region Awake - set up instance
         void Awake()
@@ -52,6 +54,10 @@ namespace DoodleJump.Generation
             lastTrunk = newTrunk;
 
             //spawn base trunk's branches here
+            BranchManager.instance.SpawnBranch(lastTrunk, true,0);
+            BranchManager.instance.SpawnBranch(lastTrunk, true,1);
+            BranchManager.instance.SpawnBranch(lastTrunk, false,0);
+            BranchManager.instance.SpawnBranch(lastTrunk, false,3);
 
             #endregion
 
@@ -77,6 +83,10 @@ namespace DoodleJump.Generation
             lastTrunk = newTrunk;
 
             //spawn this trunk's branches here
+            BranchManager.instance.SpawnBranch(lastTrunk, true, 0);
+            BranchManager.instance.SpawnBranch(lastTrunk, true, 1);
+            BranchManager.instance.SpawnBranch(lastTrunk, false, 0);
+            BranchManager.instance.SpawnBranch(lastTrunk, false, 3);
 
         }
         #endregion
@@ -91,7 +101,7 @@ namespace DoodleJump.Generation
             }
             if (GUI.Button(new Rect(100f, 50f, 50f, 50f), "add trunk"))
             {
-                BranchManager.instance.SpawnBranchLeft(lastTrunk);
+                //BranchManager.instance.SpawnBranch(lastTrunk,true);
             }
         }
 #endif

@@ -19,13 +19,15 @@ namespace DoodleJump.Player
         private Rigidbody2D body;
 
 
-       
+        private float direction;
         private int currentHeightAchieved, currentHeight, highestHeight;
+        [SerializeField]private bool grounded;
 
 
-        [SerializeField] private Text currentHeightAchievedText,currentHeightText, highestHeightText;
+        [SerializeField] private Text currentHeightAchievedText, currentHeightText, highestHeightText;
+        [SerializeField] private float jumpSpeed,heightMultiplyer;
 
-        
+
         #endregion
         #region Start
         void Start()
@@ -38,7 +40,7 @@ namespace DoodleJump.Player
 
             //get highest score
             highestHeight = Scores.instance.HighScores[0].score;
-            highestHeightText.text = (Scores.instance.HighScores[0].name+ ": "+ highestHeight.ToString()+" metres");
+            highestHeightText.text = ("Beat "+Scores.instance.HighScores[0].name + "'s " + highestHeight.ToString() + " metres");
 
         }
         #endregion
@@ -47,16 +49,13 @@ namespace DoodleJump.Player
         {
             UpdateHeight(); //update height ui
 
-            //if velocity upwards, disable collide
+            UpdateMove(); //move
 
-            //if velocity downwards too fast
-            //GameManager.instance.GameOver(currentHeightAchieved);
 
-            //flip sprite based on input
-            //if (Input.GetButton("left"))
-            {
-
-            }
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            grounded = true;
         }
         #endregion
         #region Functions
@@ -66,16 +65,60 @@ namespace DoodleJump.Player
         /// </summary>
         private void UpdateHeight()
         {
-            currentHeight = (int)gameObject.transform.position.y;
-            currentHeightText.text = currentHeight.ToString();
+            currentHeight = (int)(gameObject.transform.position.y*heightMultiplyer);
+            currentHeightText.text = "Current height: "+currentHeight.ToString();
             if (currentHeight > currentHeightAchieved)
             {
                 currentHeightAchieved = currentHeight;
-                currentHeightAchievedText.text = currentHeightAchieved.ToString();
+                currentHeightAchievedText.text = "Highest this round: "+currentHeightAchieved.ToString();
             }
         }
         #endregion
+        #region update move
+        /// <summary>
+        /// everything in here works fine and doesn't need changing
+        /// </summary>
+        private void UpdateMove()
+        {
+            //flip sprite based on input
+            if (direction > 0)
+            {
+                render.flipX = false;
+            }
+            else if (direction < 0)
+            {
+                render.flipX = true;
+            }
 
+            //jump
+            if (grounded)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    body.AddForce(new Vector2(0, jumpSpeed));
+                    grounded = false;
+                }
+            }
+
+            //side direction
+            direction = (Input.GetAxis("Horizontal"));
+            body.AddForce(new Vector2(direction, 0));
+
+            //if velocity upwards, disable collide
+            if (body.velocity.y > 0)
+            {
+                collide.enabled = false;
+            }
+            else
+            {
+                collide.enabled = true;
+            }
+        }
+        #endregion
+        public void GameOver()
+        {
+            GameManager.instance.GameOver(currentHeightAchieved);
+        }
         #endregion
     }
 }

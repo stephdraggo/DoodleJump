@@ -43,7 +43,8 @@ namespace DoodleJump
         #region Functions
         public void GameOver(float _heightAchieved)
         {
-
+            Debug.Log("died");
+            Time.timeScale = 0;
         }
 
         
