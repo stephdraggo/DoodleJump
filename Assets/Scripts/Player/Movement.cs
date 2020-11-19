@@ -105,7 +105,7 @@ namespace DoodleJump.Player
             body.AddForce(new Vector2(direction, 0));
 
             //if velocity upwards, disable collide
-            if (body.velocity.y > 0)
+            if (body.velocity.y > 0||Input.GetKey(KeyCode.S))
             {
                 collide.enabled = false;
             }

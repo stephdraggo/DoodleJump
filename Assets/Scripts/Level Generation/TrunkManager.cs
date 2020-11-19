@@ -54,10 +54,13 @@ namespace DoodleJump.Generation
             lastTrunk = newTrunk;
 
             //spawn base trunk's branches here
-            BranchManager.instance.SpawnBranch(lastTrunk, true,0);
-            BranchManager.instance.SpawnBranch(lastTrunk, true,1);
-            BranchManager.instance.SpawnBranch(lastTrunk, false,0);
-            BranchManager.instance.SpawnBranch(lastTrunk, false,3);
+            for (int i = 0; i < 3; i++)
+            {
+                float offset = -trunkHeight;
+                offset += i * (trunkHeight / 3);
+                BranchManager.instance.SpawnBranch(lastTrunk, true, offset, i);
+                BranchManager.instance.SpawnBranch(lastTrunk, false, offset, i);
+            }
 
             #endregion
 
@@ -83,10 +86,13 @@ namespace DoodleJump.Generation
             lastTrunk = newTrunk;
 
             //spawn this trunk's branches here
-            BranchManager.instance.SpawnBranch(lastTrunk, true, 0);
-            BranchManager.instance.SpawnBranch(lastTrunk, true, 1);
-            BranchManager.instance.SpawnBranch(lastTrunk, false, 0);
-            BranchManager.instance.SpawnBranch(lastTrunk, false, 3);
+            for (int i = 0; i < 3; i++)
+            {
+                float offset = -trunkHeight;
+                offset += i * (trunkHeight / 3);
+                BranchManager.instance.SpawnBranch(lastTrunk, true, offset,i);
+                BranchManager.instance.SpawnBranch(lastTrunk, false, offset,i);
+            }
 
         }
         #endregion

@@ -8,7 +8,8 @@ namespace DoodleJump
     {
         #region Variables
         public static GameManager instance = null;
-
+        private Saving.SaveGame saving;
+        private Menus.MainMenu menus;
         
         #endregion
         #region Awake - set up instance
@@ -29,15 +30,18 @@ namespace DoodleJump
         #region Start
         void Start()
         {
-           
 
-            
+
+            saving.LoadButton();
         }
         #endregion
         #region Update
         void Update()
         {
-
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Pause();
+            }
         }
         #endregion
         #region Functions
@@ -46,8 +50,26 @@ namespace DoodleJump
             Debug.Log("died");
             Time.timeScale = 0;
         }
+        public void Play()
+        {
+            Time.timeScale = 1;
+            menus.ChangePanel(0); //HUD
+        }
+        public void Pause()
+        {
+            Time.timeScale = 0;
+            menus.ChangePanel(1); //Menu
+        }
+        public void Quit()
+        {
+            saving.SaveButton();
 
-        
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
+        }
+
         #endregion
     }
 }
