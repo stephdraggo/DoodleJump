@@ -30,6 +30,7 @@ namespace DoodleJump.Menus
                 panels[i].SetActive(false);
             }
             panels[_index].SetActive(true);
+            Debug.Log(panels[_index].name);
         }
         #endregion
     }

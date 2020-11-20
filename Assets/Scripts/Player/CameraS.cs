@@ -34,7 +34,7 @@ namespace DoodleJump.Generation
             {
                 transform.position = new Vector3(transform.position.x, playerMove.transform.position.y, transform.position.z);
             }
-            if (playerMove.transform.position.y < transform.position.y - camSize)
+            if (playerMove.transform.position.y < transform.position.y - camSize&&Time.timeScale>0)
             {
                 playerMove.GameOver();
             }

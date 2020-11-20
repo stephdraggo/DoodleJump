@@ -27,7 +27,8 @@ namespace DoodleJump.Player
         [SerializeField] private Text currentHeightAchievedText, currentHeightText, highestHeightText;
         [SerializeField] private float jumpSpeed,heightMultiplyer;
 
-
+        [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private AudioClip jump, land;
         #endregion
         #region Start
         void Start()
@@ -56,6 +57,9 @@ namespace DoodleJump.Player
         private void OnCollisionEnter2D(Collision2D collision)
         {
             grounded = true;
+            sfxSource.clip = land;
+            sfxSource.Play();
+            animate.SetInteger("StateIndex", 1); //run
         }
         #endregion
         #region Functions
@@ -76,7 +80,7 @@ namespace DoodleJump.Player
         #endregion
         #region update move
         /// <summary>
-        /// everything in here works fine and doesn't need changing
+        /// all the movement and animation stuff
         /// </summary>
         private void UpdateMove()
         {
@@ -93,10 +97,24 @@ namespace DoodleJump.Player
             //jump
             if (grounded)
             {
+                //run or idle
+                if (direction > 0.1 || direction < -0.1)
+                {
+                    animate.SetInteger("StateIndex", 1); //run
+                }
+                else
+                {
+                    animate.SetInteger("StateIndex", 0); //idle
+                }
+
+                //override with jump if applicable
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     body.AddForce(new Vector2(0, jumpSpeed));
                     grounded = false;
+                    sfxSource.clip = jump;
+                    sfxSource.Play();
+                    animate.SetInteger("StateIndex", 3); //jump
                 }
             }
 
@@ -107,6 +125,10 @@ namespace DoodleJump.Player
             //if velocity upwards, disable collide
             if (body.velocity.y > 0||Input.GetKey(KeyCode.S))
             {
+                if (Input.GetKey(KeyCode.S))
+                {
+                    animate.SetInteger("StateIndex", 2); //crouch
+                }
                 collide.enabled = false;
             }
             else

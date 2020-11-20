@@ -53,15 +53,7 @@ namespace DoodleJump.Generation
             trunks.Add(newTrunk);
             lastTrunk = newTrunk;
 
-            //spawn base trunk's branches here
-            for (int i = 0; i < 3; i++)
-            {
-                float offset = -trunkHeight;
-                offset += i * (trunkHeight / 3);
-                BranchManager.instance.SpawnBranch(lastTrunk, true, offset, i);
-                BranchManager.instance.SpawnBranch(lastTrunk, false, offset, i);
-            }
-
+            SpawnBranches();
             #endregion
 
         }
@@ -85,32 +77,32 @@ namespace DoodleJump.Generation
             trunks.Add(newTrunk);
             lastTrunk = newTrunk;
 
-            //spawn this trunk's branches here
-            for (int i = 0; i < 3; i++)
+            SpawnBranches();
+        }
+        /// <summary>
+        /// random number of branches each side
+        /// branches are offset from each other on the y axis based on how many there are
+        /// branch is randomly selected from prefabs
+        /// </summary>
+        private void SpawnBranches()
+        {
+            int numberOfBranches = Random.Range(2, 5);
+            for (int i = 0; i < numberOfBranches; i++)
             {
                 float offset = -trunkHeight;
-                offset += i * (trunkHeight / 3);
-                BranchManager.instance.SpawnBranch(lastTrunk, true, offset,i);
-                BranchManager.instance.SpawnBranch(lastTrunk, false, offset,i);
+                offset += i * (trunkHeight / numberOfBranches);
+                int prefab = Random.Range(0, 3);
+                BranchManager.instance.SpawnBranch(lastTrunk, true, offset, prefab);
             }
-
-        }
-        #endregion
-
-        #region Testing
-#if UNITY_EDITOR
-        private void OnGUI()
-        {
-            if (GUI.Button(new Rect(50f, 50f, 50f, 50f), "add trunk"))
+            numberOfBranches = Random.Range(2, 5);
+            for (int i = 0; i < numberOfBranches; i++)
             {
-                SpawnTrunk();
-            }
-            if (GUI.Button(new Rect(100f, 50f, 50f, 50f), "add trunk"))
-            {
-                //BranchManager.instance.SpawnBranch(lastTrunk,true);
+                float offset = -trunkHeight;
+                offset += i * (trunkHeight / numberOfBranches);
+                int prefab = Random.Range(0, 3);
+                BranchManager.instance.SpawnBranch(lastTrunk, false, offset, prefab);
             }
         }
-#endif
         #endregion
     }
 }

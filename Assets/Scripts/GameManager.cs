@@ -25,12 +25,15 @@ namespace DoodleJump
                 return; //exit code early
             }
             DontDestroyOnLoad(gameObject); //always be able to access the original instance
+
+            saving = FindObjectOfType<Saving.SaveGame>();
+            menus = FindObjectOfType<Menus.MainMenu>();
         }
         #endregion
         #region Start
         void Start()
         {
-
+            Pause();
 
             saving.LoadButton();
         }
@@ -47,8 +50,14 @@ namespace DoodleJump
         #region Functions
         public void GameOver(float _heightAchieved)
         {
-            Debug.Log("died");
             Time.timeScale = 0;
+            menus.ChangePanel(3); //High Scores
+        }
+        public void BackToMenu()
+        {
+            //save options here
+            menus.ChangePanel(1); //Menu
+            Debug.Log("main menu");
         }
         public void Play()
         {
