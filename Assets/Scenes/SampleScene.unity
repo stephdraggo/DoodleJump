@@ -1091,6 +1091,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 547067471}
+        m_MethodName: UpdateScores
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &230814290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6788,7 +6799,7 @@ MonoBehaviour:
   currentHeightAchievedText: {fileID: 1981134800}
   currentHeightText: {fileID: 84278403}
   highestHeightText: {fileID: 1206950703}
-  jumpSpeed: 100
+  jumpSpeed: 150
   heightMultiplyer: 5
   sfxSource: {fileID: 547067480}
   jump: {fileID: 8300000, guid: 67e15150ffac3a144a8eb53ca2f9455e, type: 3}

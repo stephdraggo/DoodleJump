@@ -139,6 +139,26 @@ namespace DoodleJump
             DisplayHighScores();
         }
         #endregion
+        
+        #region compare new score
+        public void CompareNewScore(float _newScore)
+        {
+            scoreSet newScore = new scoreSet();
+            newScore.score = (int)_newScore;
+            newScore.name = "Player";
+
+            for (int i = 0; i < highScores.Length; i++) //highest to lowest
+            {
+                if (_newScore > highScores[i].score) //if new score is higher
+                {
+                    highScores[9] = newScore; //replace last
+                    break;
+                }
+            }
+
+            UpdateScores();
+        }
+        #endregion
         #endregion
     }
 }

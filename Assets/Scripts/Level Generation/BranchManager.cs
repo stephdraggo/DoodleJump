@@ -71,6 +71,15 @@ namespace DoodleJump.Generation
 
             branches.Add(newBranch); //add branch to list of branches in scene
         }
+        public void ClearBranches()
+        {
+            int number = branches.Count;
+            for (int i = 0; i < number; i++)
+            {
+                Destroy(branches[0]);
+                branches.RemoveAt(0);
+            }
+        }
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DoodleJump
 {
@@ -10,7 +11,8 @@ namespace DoodleJump
         public static GameManager instance = null;
         private Saving.SaveGame saving;
         private Menus.MainMenu menus;
-        
+        private Scores scores;
+        private Generation.TrunkManager trunkManager;
         #endregion
         #region Awake - set up instance
         void Awake()
@@ -28,6 +30,8 @@ namespace DoodleJump
 
             saving = FindObjectOfType<Saving.SaveGame>();
             menus = FindObjectOfType<Menus.MainMenu>();
+            scores = FindObjectOfType<Scores>();
+            trunkManager = FindObjectOfType<Generation.TrunkManager>();
         }
         #endregion
         #region Start
@@ -52,12 +56,14 @@ namespace DoodleJump
         {
             Time.timeScale = 0;
             menus.ChangePanel(3); //High Scores
+            scores.UpdateScores();
+            scores.CompareNewScore(_heightAchieved);
         }
         public void BackToMenu()
         {
-            //save options here
-            menus.ChangePanel(1); //Menu
-            Debug.Log("main menu");
+            trunkManager.ClearTree();
+            SceneManager.LoadScene(0); //use this instead of panels so you can replay after dying
+            //need to call start again
         }
         public void Play()
         {

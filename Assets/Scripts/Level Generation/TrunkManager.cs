@@ -86,7 +86,7 @@ namespace DoodleJump.Generation
         /// </summary>
         private void SpawnBranches()
         {
-            int numberOfBranches = Random.Range(2, 5);
+            int numberOfBranches = Random.Range(1, 5);
             for (int i = 0; i < numberOfBranches; i++)
             {
                 float offset = -trunkHeight;
@@ -101,6 +101,16 @@ namespace DoodleJump.Generation
                 offset += i * (trunkHeight / numberOfBranches);
                 int prefab = Random.Range(0, 3);
                 BranchManager.instance.SpawnBranch(lastTrunk, false, offset, prefab);
+            }
+        }
+        public void ClearTree()
+        {
+            BranchManager.instance.ClearBranches();
+            int number = trunks.Count;
+            for (int i = 0; i < number; i++)
+            {
+                Destroy(trunks[0]);
+                trunks.RemoveAt(0);
             }
         }
         #endregion
