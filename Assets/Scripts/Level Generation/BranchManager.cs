@@ -7,8 +7,6 @@ namespace DoodleJump.Generation
     public class BranchManager : MonoBehaviour
     {
         #region Variables
-        public static BranchManager instance = null;
-
         [SerializeField, Tooltip("Array of left branch prefabs to spawn from.")]
         private GameObject[] branchLeftPrefabs;
         [SerializeField, Tooltip("Array of right branch prefabs to spawn from.")]
@@ -16,29 +14,16 @@ namespace DoodleJump.Generation
 
         [SerializeField, Tooltip("List of branch objects in game.")]
         private List<GameObject> branches;
+
+        private TrunkManager trunkManager;
         #endregion
         #region Properties
 
         #endregion
-        #region Awake - set up instance
-        void Awake()
-        {
-            if (instance == null) //if the instance doesn't exist
-            {
-                instance = this; //set this as instance
-            }
-            else if (instance != this) //if there is an instance but it isn't this object
-            {
-                Destroy(gameObject); //delete this
-                return; //exit code early
-            }
-            DontDestroyOnLoad(gameObject); //always be able to access the original instance
-        }
-        #endregion
         #region Start
         void Start()
         {
-
+            trunkManager = FindObjectOfType<TrunkManager>();
         }
         #endregion
         #region Update
@@ -55,12 +40,12 @@ namespace DoodleJump.Generation
             if (left) //if left
             {
                 branch = branchLeftPrefabs[_index]; //get random left branch prefab
-                x -= TrunkManager.instance.TrunkWidth / 3; //move x coordinate to the left
+                x -= trunkManager.TrunkWidth / 3; //move x coordinate to the left
             }
             else //if right
             {
                 branch = branchRightPrefabs[_index]; //get random right branch prefab
-                x += TrunkManager.instance.TrunkWidth / 3; //move x coordinate to the right
+                x += trunkManager.TrunkWidth / 3; //move x coordinate to the right
             }
             x += _trunk.transform.position.x + branch.transform.position.x; //add trunk position and modified branch prefab position to x coordinate
             float y = _trunk.transform.position.y + _offset; //create y coordinate and add offset

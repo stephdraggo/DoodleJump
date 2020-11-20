@@ -139,7 +139,7 @@ namespace DoodleJump
             DisplayHighScores();
         }
         #endregion
-        
+
         #region compare new score
         public void CompareNewScore(float _newScore)
         {

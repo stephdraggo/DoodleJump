@@ -7,8 +7,6 @@ namespace DoodleJump.Generation
     public class TrunkManager : MonoBehaviour
     {
         #region Variables
-        public static TrunkManager instance = null;
-
         [SerializeField, Tooltip("Array of trunk prefabs to spawn from.")]
         private GameObject[] trunkPrefabs;
 
@@ -20,30 +18,20 @@ namespace DoodleJump.Generation
 
         [SerializeField, Tooltip("Last trunk spawned.")]
         private GameObject lastTrunk;
+
+        private BranchManager branchManager;
         #endregion
         #region Properties
         public float TrunkWidth { get => trunkWidth; }
         public float TrunkHeight { get => trunkHeight; }
         public float TreeTop { get => lastTrunk.transform.position.y + trunkHeight / 2; }
-        #endregion
-        #region Awake - set up instance
-        void Awake()
-        {
-            if (instance == null) //if the instance doesn't exist
-            {
-                instance = this; //set this as instance
-            }
-            else if (instance != this) //if there is an instance but it isn't this object
-            {
-                Destroy(gameObject); //delete this
-                return; //exit code early
-            }
-            DontDestroyOnLoad(gameObject); //always be able to access the original instance
-        }
+        public GameObject LastTrunk { get => lastTrunk; }
         #endregion
         #region Start
-        void Start()
+        public void Start()
         {
+            branchManager = FindObjectOfType<BranchManager>();
+
             trunkHeight = trunkPrefabs[0].GetComponent<BoxCollider2D>().size.y;
             trunkWidth = trunkPrefabs[0].GetComponent<BoxCollider2D>().size.x;
 
@@ -92,7 +80,7 @@ namespace DoodleJump.Generation
                 float offset = -trunkHeight;
                 offset += i * (trunkHeight / numberOfBranches);
                 int prefab = Random.Range(0, 3);
-                BranchManager.instance.SpawnBranch(lastTrunk, true, offset, prefab);
+                branchManager.SpawnBranch(lastTrunk, true, offset, prefab);
             }
             numberOfBranches = Random.Range(2, 5);
             for (int i = 0; i < numberOfBranches; i++)
@@ -100,12 +88,12 @@ namespace DoodleJump.Generation
                 float offset = -trunkHeight;
                 offset += i * (trunkHeight / numberOfBranches);
                 int prefab = Random.Range(0, 3);
-                BranchManager.instance.SpawnBranch(lastTrunk, false, offset, prefab);
+                branchManager.SpawnBranch(lastTrunk, false, offset, prefab);
             }
         }
         public void ClearTree()
         {
-            BranchManager.instance.ClearBranches();
+            branchManager.ClearBranches();
             int number = trunks.Count;
             for (int i = 0; i < number; i++)
             {

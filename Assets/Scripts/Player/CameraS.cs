@@ -41,6 +41,10 @@ namespace DoodleJump.Generation
         }
         private void Trunks()
         {
+            if (trunks.LastTrunk == null)
+            {
+                trunks.Start();
+            }
             if (trunks.TreeTop < transform.position.y + camSize)
             {
                 trunks.SpawnTrunk();

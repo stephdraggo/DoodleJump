@@ -13,7 +13,7 @@ namespace DoodleJump.Menus
         #region Start
         void Start()
         {
-
+            ChangePanel(1);
         }
         #endregion
         #region Update
@@ -30,7 +30,6 @@ namespace DoodleJump.Menus
                 panels[i].SetActive(false);
             }
             panels[_index].SetActive(true);
-            Debug.Log(panels[_index].name);
         }
         #endregion
     }

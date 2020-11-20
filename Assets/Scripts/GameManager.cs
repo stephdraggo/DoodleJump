@@ -63,7 +63,6 @@ namespace DoodleJump
         {
             trunkManager.ClearTree();
             SceneManager.LoadScene(0); //use this instead of panels so you can replay after dying
-            //need to call start again
         }
         public void Play()
         {
