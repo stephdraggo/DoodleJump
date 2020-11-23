@@ -13,6 +13,8 @@ namespace DoodleJump.Player
     public class Movement : MonoBehaviour
     {
         #region Variables
+        private GameManager game;
+        private Scores score;
         private Animator animate;
         private SpriteRenderer render;
         private Collider2D collide;
@@ -21,11 +23,11 @@ namespace DoodleJump.Player
 
         private float direction;
         private int currentHeightAchieved, currentHeight, highestHeight;
-        [SerializeField]private bool grounded;
+        [SerializeField] private bool grounded;
 
 
         [SerializeField] private Text currentHeightAchievedText, currentHeightText, highestHeightText;
-        [SerializeField] private float jumpSpeed,heightMultiplyer;
+        [SerializeField] private float jumpSpeed, heightMultiplyer;
 
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioClip jump, land;
@@ -33,6 +35,9 @@ namespace DoodleJump.Player
         #region Start
         void Start()
         {
+            game = FindObjectOfType<GameManager>();
+            score = FindObjectOfType<Scores>();
+
             //connect components
             animate = GetComponent<Animator>();
             render = GetComponent<SpriteRenderer>();
@@ -40,8 +45,16 @@ namespace DoodleJump.Player
             body = GetComponent<Rigidbody2D>();
 
             //get highest score
-            highestHeight = Scores.instance.HighScores[0].score;
-            highestHeightText.text = ("Beat "+Scores.instance.HighScores[0].name + "'s " + highestHeight.ToString() + " metres");
+            if (score.HighScores.Length>2)
+            {
+                highestHeight = score.HighScores[0].score;
+                highestHeightText.text = ("Beat " + score.HighScores[0].name + "'s " + highestHeight.ToString() + " metres");
+            }
+            else
+            {
+                highestHeight = 0;
+                highestHeightText.text = ("Beat Sam's 0 metres");
+            }
 
         }
         #endregion
@@ -51,8 +64,6 @@ namespace DoodleJump.Player
             UpdateHeight(); //update height ui
 
             UpdateMove(); //move
-
-
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -69,12 +80,12 @@ namespace DoodleJump.Player
         /// </summary>
         private void UpdateHeight()
         {
-            currentHeight = (int)(gameObject.transform.position.y*heightMultiplyer);
-            currentHeightText.text = "Current height: "+currentHeight.ToString();
+            currentHeight = (int)(gameObject.transform.position.y * heightMultiplyer);
+            currentHeightText.text = "Current height: " + currentHeight.ToString();
             if (currentHeight > currentHeightAchieved)
             {
                 currentHeightAchieved = currentHeight;
-                currentHeightAchievedText.text = "Highest this round: "+currentHeightAchieved.ToString();
+                currentHeightAchievedText.text = "Highest this round: " + currentHeightAchieved.ToString();
             }
         }
         #endregion
@@ -123,7 +134,7 @@ namespace DoodleJump.Player
             body.AddForce(new Vector2(direction, 0));
 
             //if velocity upwards, disable collide
-            if (body.velocity.y > 0||Input.GetKey(KeyCode.S))
+            if (body.velocity.y > 0 || Input.GetKey(KeyCode.S))
             {
                 if (Input.GetKey(KeyCode.S))
                 {
@@ -139,7 +150,7 @@ namespace DoodleJump.Player
         #endregion
         public void GameOver()
         {
-            GameManager.instance.GameOver(currentHeightAchieved);
+            game.GameOver(currentHeightAchieved);
         }
         #endregion
     }

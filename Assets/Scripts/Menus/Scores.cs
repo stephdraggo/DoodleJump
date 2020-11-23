@@ -8,8 +8,8 @@ namespace DoodleJump
     public class Scores : MonoBehaviour
     {
         #region Variables
-        public static Scores instance;
         public Saving.GameData game;
+        private Saving.SaveGame saving;
         private scoreSet[] highScores;
 
         [SerializeField]
@@ -28,24 +28,13 @@ namespace DoodleJump
         #region Awake
         void Awake()
         {
-            #region set up instance
-            if (instance == null) //if the instance doesn't exist
-            {
-                instance = this; //set this as instance
-            }
-            else if (instance != this) //if there is an instance but it isn't this object
-            {
-                Destroy(gameObject); //delete this
-                return; //exit code early
-            }
-            DontDestroyOnLoad(gameObject); //always be able to access the original instance
-            #endregion
-
+            saving = FindObjectOfType<Saving.SaveGame>();
 
             //load highScores from binary
             if (game.highScores != null)
             {
-
+                saving.LoadButton();
+                highScores = game.highScores;
             }
 
             if (highScores == null) //if no high scores
@@ -82,6 +71,7 @@ namespace DoodleJump
                 tempScore.name = "Sam"; //give name (Sam the dragon)
                 highScores[i] = tempScore; //add scoreset
             }
+            saving.SaveButton();
         }
         #endregion
 
@@ -137,6 +127,7 @@ namespace DoodleJump
         {
             highScores = OrderScores(highScores);
             DisplayHighScores();
+            saving.SaveButton();
         }
         #endregion
 

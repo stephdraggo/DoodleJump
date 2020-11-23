@@ -8,7 +8,7 @@ namespace DoodleJump
     public class GameManager : MonoBehaviour
     {
         #region Variables
-        public static GameManager instance = null;
+        //public static GameManager instance = null;
         private Saving.SaveGame saving;
         private Menus.MainMenu menus;
         private Scores scores;
@@ -17,16 +17,16 @@ namespace DoodleJump
         #region Awake - set up instance
         void Awake()
         {
-            if (instance == null) //if the instance doesn't exist
-            {
-                instance = this; //set this as instance
-            }
-            else if (instance != this) //if there is an instance but it isn't this object
-            {
-                Destroy(gameObject); //delete this
-                return; //exit code early
-            }
-            DontDestroyOnLoad(gameObject); //always be able to access the original instance
+            //if (instance == null) //if the instance doesn't exist
+            //{
+            //    instance = this; //set this as instance
+            //}
+            //else if (instance != this) //if there is an instance but it isn't this object
+            //{
+            //    Destroy(gameObject); //delete this
+            //    return; //exit code early
+            //}
+            //DontDestroyOnLoad(gameObject); //always be able to access the original instance
 
             saving = FindObjectOfType<Saving.SaveGame>();
             menus = FindObjectOfType<Menus.MainMenu>();
