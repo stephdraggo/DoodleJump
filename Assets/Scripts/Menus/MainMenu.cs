@@ -10,26 +10,18 @@ namespace DoodleJump.Menus
         [SerializeField,Tooltip("HUD, Menu, Settings, Scores")]
         private GameObject[] panels;
         #endregion
-        #region Start
-        void Start()
-        {
-            ChangePanel(1);
-        }
-        #endregion
-        #region Update
-        void Update()
-        {
-
-        }
-        #endregion
         #region Functions
+        /// <summary>
+        /// Function for hiding all panels except the desired panel.
+        /// </summary>
+        /// <param name="_index">index of panel to show (0:HUD, 1:Menu, 2:Settings, 3:Scores)</param>
         public void ChangePanel(int _index)
         {
-            for (int i = 0; i < panels.Length; i++)
+            for (int i = 0; i < panels.Length; i++) //for every panel
             {
-                panels[i].SetActive(false);
+                panels[i].SetActive(false); //deactivate
             }
-            panels[_index].SetActive(true);
+            panels[_index].SetActive(true); //activate selected panel
         }
         #endregion
     }

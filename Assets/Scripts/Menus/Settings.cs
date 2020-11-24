@@ -12,6 +12,9 @@ namespace DoodleJump.Menus
         [SerializeField, Tooltip("Connect AudioMixer here.")] private AudioMixer mixer;
         #endregion
         #region Start
+        /// <summary>
+        /// Load prior sound settings if applicable.
+        /// </summary>
         private void Start()
         {
             //if music has been saved previously, load those settings

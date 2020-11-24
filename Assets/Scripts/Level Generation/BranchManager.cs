@@ -17,22 +17,23 @@ namespace DoodleJump.Generation
 
         private TrunkManager trunkManager;
         #endregion
-        #region Properties
-
-        #endregion
-        #region Start
-        void Start()
+        #region Awake
+        /// <summary>
+        /// Connects important objects.
+        /// </summary>
+        void Awake()
         {
             trunkManager = FindObjectOfType<TrunkManager>();
         }
         #endregion
-        #region Update
-        void Update()
-        {
-
-        }
-        #endregion
         #region Functions
+        /// <summary>
+        /// Function for spawning one branch.
+        /// </summary>
+        /// <param name="_trunk">the trunk parent for this branch</param>
+        /// <param name="left">if this branch is for the left side of the trunk or not(right side)</param>
+        /// <param name="_offset">how far up the trunk this branch goes</param>
+        /// <param name="_index">which branch prefab to use</param>
         public void SpawnBranch(GameObject _trunk, bool left, float _offset,int _index)
         {
             GameObject branch = null; //create reference to prefab
@@ -52,10 +53,11 @@ namespace DoodleJump.Generation
             Vector3 position = new Vector3(x, y); //create position from coordinates
             GameObject newBranch = Instantiate(branch, position, branch.transform.rotation, _trunk.transform); //create branch from selected prefab at position, facing the selected direction and as a child of its trunk
 
-
-
             branches.Add(newBranch); //add branch to list of branches in scene
         }
+        /// <summary>
+        /// Delete all branches from the scene and remove from list of branches.
+        /// </summary>
         public void ClearBranches()
         {
             int number = branches.Count;

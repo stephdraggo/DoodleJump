@@ -16,46 +16,35 @@ namespace DoodleJump
         private Text[] scoreNames, scoreValues;
 
         [System.Serializable]
-        public struct scoreSet
+        public struct scoreSet //one block of score
         {
-            public int score;
-            public string name;
+            public int score; //score amount
+            public string name; //name of player who achieved this score first
         }
         #endregion
         #region Properties
         public scoreSet[] HighScores { get => highScores; }
         #endregion
         #region Awake
+        /// <summary>
+        /// Connects important objects and sets up scores.
+        /// </summary>
         void Awake()
         {
             saving = FindObjectOfType<Saving.SaveGame>();
 
-            //load highScores from binary
-            if (game.highScores != null)
-            {
-                saving.LoadButton();
-                highScores = game.highScores;
-            }
-
-            if (highScores == null) //if no high scores
-            {
-                DefaultScores(); //set up default scores
-            }
-
             UpdateScores();
-
         }
         #endregion
         #region Start
+        /// <summary>
+        /// Update scores again just because.
+        /// </summary>
         void Start()
-        {
-
-        }
-        #endregion
-        void Update()
         {
             UpdateScores();
         }
+        #endregion
         #region Functions
         #region default high scores
         /// <summary>
@@ -77,10 +66,10 @@ namespace DoodleJump
 
         #region order scores
         /// <summary>
-        /// Reorders a scoreset to be highest to lowest.
+        /// Reorders a scoreset to be highest to lowest. I'm very proud of this logic, I figured it out myself.
         /// </summary>
         /// <param name="_scores">scoreset array to be reordered</param>
-        /// <returns></returns>
+        /// <returns>ordered list of scores</returns>
         public scoreSet[] OrderScores(scoreSet[] _scores)
         {
             scoreSet[] tempScores = new scoreSet[_scores.Length]; //create new scoreset array of the same length as the passed array
@@ -112,31 +101,54 @@ namespace DoodleJump
         #endregion
 
         #region display high scores
+        /// <summary>
+        /// Updates score display.
+        /// </summary>
         private void DisplayHighScores()
         {
-            for (int i = 0; i < HighScores.Length; i++)
+            for (int i = 0; i < HighScores.Length; i++) //for each high score
             {
-                scoreNames[i].text = HighScores[i].name + ":";
-                scoreValues[i].text = HighScores[i].score.ToString() + " m";
+                scoreNames[i].text = HighScores[i].name + ":"; //display name in name spot
+                scoreValues[i].text = HighScores[i].score.ToString() + " m"; //and score in score spot
             }
         }
         #endregion
 
         #region update scores
+        /// <summary>
+        /// Check for scores (load or create if none found), order them correctly, update the display, and save the scores.
+        /// </summary>
         public void UpdateScores()
         {
-            highScores = OrderScores(highScores);
-            DisplayHighScores();
-            saving.SaveButton();
+            if (highScores.Length < 1) //if there are no active scores
+            {
+                if (game.highScores.Length > 0) //if there are saved scores
+                {
+                    highScores = game.highScores; //get scores from save
+                }
+                else
+                {
+                    DefaultScores(); //generate random scores
+                }
+            }
+
+            highScores = OrderScores(highScores); //reorder scores from highest to lowest
+            DisplayHighScores(); //update the display
+            game.highScores = highScores; //send these scores to the save file
+            saving.SaveButton(); //save these scores
         }
         #endregion
 
         #region compare new score
+        /// <summary>
+        /// Considers the given score and puts it in array if it's high enough.
+        /// </summary>
+        /// <param name="_newScore">score amount to be tested</param>
         public void CompareNewScore(float _newScore)
         {
-            scoreSet newScore = new scoreSet();
-            newScore.score = (int)_newScore;
-            newScore.name = "Player";
+            scoreSet newScore = new scoreSet(); //new empty score set
+            newScore.score = (int)_newScore; //set score as the achieved score
+            newScore.name = "Player"; //set name as "Player", might become customisable in future
 
             for (int i = 0; i < highScores.Length; i++) //highest to lowest
             {
@@ -147,7 +159,7 @@ namespace DoodleJump
                 }
             }
 
-            UpdateScores();
+            UpdateScores(); //update scores
         }
         #endregion
         #endregion

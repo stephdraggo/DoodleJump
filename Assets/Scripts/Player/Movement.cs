@@ -6,6 +6,7 @@ using UnityEngine.UI;
 namespace DoodleJump.Player
 {
     [AddComponentMenu("Doodle Jump/Player/Movement")]
+    //needed components for player
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(SpriteRenderer))]
     [RequireComponent(typeof(CircleCollider2D))]
@@ -13,28 +14,35 @@ namespace DoodleJump.Player
     public class Movement : MonoBehaviour
     {
         #region Variables
+        //game references
         private GameManager game;
         private Scores score;
+
+        //component references
         private Animator animate;
         private SpriteRenderer render;
         private Collider2D collide;
         private Rigidbody2D body;
 
-
+        //gameplay variables
         private float direction;
         private int currentHeightAchieved, currentHeight, highestHeight;
-        [SerializeField] private bool grounded;
+        private bool grounded;
 
+        [Header("Make sure these are connected.")]
+        [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private AudioClip jump, land;
 
         [SerializeField] private Text currentHeightAchievedText, currentHeightText, highestHeightText;
         [SerializeField] private float jumpSpeed, heightMultiplyer;
-
-        [SerializeField] private AudioSource sfxSource;
-        [SerializeField] private AudioClip jump, land;
         #endregion
-        #region Start
-        void Start()
+        #region Awake
+        /// <summary>
+        /// Connect important objects.
+        /// </summary>
+        private void Awake()
         {
+            //connect game
             game = FindObjectOfType<GameManager>();
             score = FindObjectOfType<Scores>();
 
@@ -43,19 +51,25 @@ namespace DoodleJump.Player
             render = GetComponent<SpriteRenderer>();
             collide = GetComponent<CircleCollider2D>();
             body = GetComponent<Rigidbody2D>();
-
-            //get highest score
-            if (score.HighScores.Length>2)
+        }
+        #endregion
+        #region Start
+        /// <summary>
+        /// Display highest score.
+        /// </summary>
+        void Start()
+        {
+            //get highest score for display
+            if (score.HighScores.Length > 2) //if there are high scores
             {
-                highestHeight = score.HighScores[0].score;
-                highestHeightText.text = ("Beat " + score.HighScores[0].name + "'s " + highestHeight.ToString() + " metres");
+                highestHeight = score.HighScores[0].score; //get highest one
+                highestHeightText.text = ("Beat " + score.HighScores[0].name + "'s " + highestHeight.ToString() + " metres"); //display highest score with text
             }
             else
             {
-                highestHeight = 0;
+                highestHeight = 0; //default is 0
                 highestHeightText.text = ("Beat Sam's 0 metres");
             }
-
         }
         #endregion
         #region Update
@@ -67,9 +81,10 @@ namespace DoodleJump.Player
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            grounded = true;
-            sfxSource.clip = land;
-            sfxSource.Play();
+            //if collided
+            grounded = true; //player is grounded
+            sfxSource.clip = land; //assign landing sound
+            sfxSource.Play(); //play landing sound
             animate.SetInteger("StateIndex", 1); //run
         }
         #endregion
@@ -80,12 +95,12 @@ namespace DoodleJump.Player
         /// </summary>
         private void UpdateHeight()
         {
-            currentHeight = (int)(gameObject.transform.position.y * heightMultiplyer);
-            currentHeightText.text = "Current height: " + currentHeight.ToString();
-            if (currentHeight > currentHeightAchieved)
+            currentHeight = (int)(gameObject.transform.position.y * heightMultiplyer); //display height is current y coordinate multiplied by height mod as an int
+            currentHeightText.text = "Current height: " + currentHeight.ToString(); //display current height as text
+            if (currentHeight > currentHeightAchieved) //if current height is highest point so far
             {
-                currentHeightAchieved = currentHeight;
-                currentHeightAchievedText.text = "Highest this round: " + currentHeightAchieved.ToString();
+                currentHeightAchieved = currentHeight; //update highest to height to current height
+                currentHeightAchievedText.text = "Highest this round: " + currentHeightAchieved.ToString(); //display highest point as text
             }
         }
         #endregion
@@ -148,10 +163,15 @@ namespace DoodleJump.Player
             }
         }
         #endregion
+        #region game over
+        /// <summary>
+        /// Send achieved height to game manager for calculating.
+        /// </summary>
         public void GameOver()
         {
             game.GameOver(currentHeightAchieved);
         }
+        #endregion
         #endregion
     }
 }

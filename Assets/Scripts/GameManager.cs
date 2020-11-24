@@ -8,26 +8,17 @@ namespace DoodleJump
     public class GameManager : MonoBehaviour
     {
         #region Variables
-        //public static GameManager instance = null;
         private Saving.SaveGame saving;
         private Menus.MainMenu menus;
         private Scores scores;
         private Generation.TrunkManager trunkManager;
         #endregion
-        #region Awake - set up instance
+        #region Awake
+        /// <summary>
+        /// Connect all the important objects.
+        /// </summary>
         void Awake()
         {
-            //if (instance == null) //if the instance doesn't exist
-            //{
-            //    instance = this; //set this as instance
-            //}
-            //else if (instance != this) //if there is an instance but it isn't this object
-            //{
-            //    Destroy(gameObject); //delete this
-            //    return; //exit code early
-            //}
-            //DontDestroyOnLoad(gameObject); //always be able to access the original instance
-
             saving = FindObjectOfType<Saving.SaveGame>();
             menus = FindObjectOfType<Menus.MainMenu>();
             scores = FindObjectOfType<Scores>();
@@ -37,14 +28,16 @@ namespace DoodleJump
         #region Start
         void Start()
         {
-            Pause();
+            Pause(); //freeze time and open menu
 
-            saving.LoadButton();
+            //this does not currently work
+            saving.LoadButton(); //load saved high scores if there are any, in theory
         }
         #endregion
         #region Update
         void Update()
         {
+            //pause game with esc
             if (Input.GetKey(KeyCode.Escape))
             {
                 Pause();
@@ -52,6 +45,10 @@ namespace DoodleJump
         }
         #endregion
         #region Functions
+        /// <summary>
+        /// Stops time, shows score panel, updates scores and incorporates new score.
+        /// </summary>
+        /// <param name="_heightAchieved">Score achieved this game.</param>
         public void GameOver(float _heightAchieved)
         {
             Time.timeScale = 0;
@@ -59,31 +56,42 @@ namespace DoodleJump
             scores.UpdateScores();
             scores.CompareNewScore(_heightAchieved);
         }
+        /// <summary>
+        /// For after game over, clears the tree and reloads scene for new game.
+        /// </summary>
         public void BackToMenu()
         {
             trunkManager.ClearTree();
             SceneManager.LoadScene(0); //use this instead of panels so you can replay after dying
         }
+        /// <summary>
+        /// Unfreezes time and shows HUD panel.
+        /// </summary>
         public void Play()
         {
             Time.timeScale = 1;
             menus.ChangePanel(0); //HUD
         }
+        /// <summary>
+        /// Freezes time and shows menu panel.
+        /// </summary>
         public void Pause()
         {
             Time.timeScale = 0;
             menus.ChangePanel(1); //Menu
         }
+        /// <summary>
+        /// Saves high scores and exits application.
+        /// </summary>
         public void Quit()
         {
-            saving.SaveButton();
+            saving.SaveButton(); //save high scores, in theory
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
             Application.Quit();
         }
-
         #endregion
     }
 }

@@ -11,8 +11,11 @@ namespace DoodleJump.Generation
         private TrunkManager trunks;
         private float camSize;
         #endregion
-        #region Start
-        void Start()
+        #region Awake
+        /// <summary>
+        /// Connect important objects and
+        /// </summary>
+        void Awake()
         {
             playerMove = FindObjectOfType<Player.Movement>();
             trunks = FindObjectOfType<TrunkManager>();
