@@ -9,7 +9,11 @@ namespace DoodleJump.Saving
 {
     public static class SaveLoad
     {
-        public static List<GameData> savedGames = new List<GameData>();
+        public static List<GameData> savedGames = new List<GameData>(); //static list of saved game states
+        /// <summary>
+        /// Save a GameData class to binary
+        /// </summary>
+        /// <param name="_game">the GameData being saved</param>
         public static void Save(GameData _game)
         {
             savedGames.Add(_game);
@@ -21,6 +25,9 @@ namespace DoodleJump.Saving
                 file.Close();
             }
         }
+        /// <summary>
+        /// Loads all saved GameData classes from binary
+        /// </summary>
         public static void Load()
         {
             if (File.Exists(Application.persistentDataPath + "/kittens.jpg"))
