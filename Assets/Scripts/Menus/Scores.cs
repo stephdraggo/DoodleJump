@@ -33,7 +33,7 @@ namespace DoodleJump
         {
             saving = FindObjectOfType<Saving.SaveGame>();
 
-            UpdateScores();
+            //UpdateScores();
         }
         #endregion
         #region Start
@@ -120,7 +120,7 @@ namespace DoodleJump
         /// </summary>
         public void UpdateScores()
         {
-            if (highScores.Length < 1) //if there are no active scores
+            if (highScores==null) //if there are no active scores
             {
                 if (game.highScores.Length > 0) //if there are saved scores
                 {

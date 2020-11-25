@@ -28,6 +28,9 @@ namespace DoodleJump.Saving
         {
             SaveLoad.Load();
 
+            if (game.highScores == null)
+                return;
+
             for (int i = 0; i < game.highScores.Length; i++)
             {
                 Debug.Log(game.highScores[i].score); //debug show me what scores are being loaded
