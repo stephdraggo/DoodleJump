@@ -16,7 +16,7 @@ namespace DoodleJump.Player
         #region Variables
         //game references
         private GameManager game;
-        private Scores score;
+        private ScoresNew score;
 
         //component references
         private Animator animate;
@@ -44,7 +44,7 @@ namespace DoodleJump.Player
         {
             //connect game
             game = FindObjectOfType<GameManager>();
-            score = FindObjectOfType<Scores>();
+            score = FindObjectOfType<ScoresNew>();
 
             //connect components
             animate = GetComponent<Animator>();
@@ -60,7 +60,7 @@ namespace DoodleJump.Player
         void Start()
         {
             //get highest score for display
-            if (score.HighScores.Length > 2) //if there are high scores
+            if (score.HighScores!=null) //if there are high scores
             {
                 highestHeight = score.HighScores[0].score; //get highest one
                 highestHeightText.text = ("Beat " + score.HighScores[0].name + "'s " + highestHeight.ToString() + " metres"); //display highest score with text

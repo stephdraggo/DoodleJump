@@ -10,7 +10,7 @@ namespace DoodleJump
         #region Variables
         private Saving.SaveGame saving;
         private Menus.MainMenu menus;
-        private Scores scores;
+        private ScoresNew scores;
         private Generation.TrunkManager trunkManager;
         #endregion
         #region Awake
@@ -21,7 +21,7 @@ namespace DoodleJump
         {
             saving = FindObjectOfType<Saving.SaveGame>();
             menus = FindObjectOfType<Menus.MainMenu>();
-            scores = FindObjectOfType<Scores>();
+            scores = FindObjectOfType<ScoresNew>();
             trunkManager = FindObjectOfType<Generation.TrunkManager>();
         }
         #endregion
@@ -53,7 +53,6 @@ namespace DoodleJump
         {
             Time.timeScale = 0;
             menus.ChangePanel(3); //High Scores
-            scores.UpdateScores();
             scores.CompareNewScore(_heightAchieved);
         }
         /// <summary>
@@ -85,7 +84,7 @@ namespace DoodleJump
         /// </summary>
         public void Quit()
         {
-            saving.SaveButton(); //save high scores, in theory
+            saving.SaveButton(scores.game); //save high scores, in theory
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

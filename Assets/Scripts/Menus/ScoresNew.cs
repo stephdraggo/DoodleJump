@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace DoodleJump
 {
-    public class Scores : MonoBehaviour
+    public class ScoresNew : MonoBehaviour
     {
         #region Variables
         public Saving.GameData game;
@@ -32,17 +30,34 @@ namespace DoodleJump
         void Awake()
         {
             saving = FindObjectOfType<Saving.SaveGame>();
-
-            //UpdateScores();
+            game = new Saving.GameData(this); //create game data attached to this score class
         }
         #endregion
         #region Start
         /// <summary>
-        /// Update scores again just because.
+        /// Detect if there is a save file
+        /// true: get that save
+        /// false: set default scores & save to binary
+        /// 
+        /// Update Display
         /// </summary>
         void Start()
         {
-            UpdateScores();
+            //get scores
+            if (saving.savedGames.Count>0) //if there is a save file
+            {
+                saving.LoadButton(); //load the save file
+                highScores = game.highScores; //get the saved scores
+            }
+            else //if there is no save file
+            {
+                DefaultScores(); //generate random scores
+                saving.SaveButton(game); //save these scores
+            }
+
+            //display scores
+            highScores = OrderScores(highScores); //order the scores
+            DisplayHighScores(); //display the ordered scores
         }
         #endregion
         #region Functions
@@ -60,7 +75,6 @@ namespace DoodleJump
                 tempScore.name = "Sam"; //give name (Sam the dragon)
                 highScores[i] = tempScore; //add scoreset
             }
-            saving.SaveButton();
         }
         #endregion
 
@@ -114,31 +128,6 @@ namespace DoodleJump
         }
         #endregion
 
-        #region update scores
-        /// <summary>
-        /// Check for scores (load or create if none found), order them correctly, update the display, and save the scores.
-        /// </summary>
-        public void UpdateScores()
-        {
-            if (highScores==null) //if there are no active scores
-            {
-                if (game.highScores.Length > 0) //if there are saved scores
-                {
-                    highScores = game.highScores; //get scores from save
-                }
-                else
-                {
-                    DefaultScores(); //generate random scores
-                }
-            }
-
-            highScores = OrderScores(highScores); //reorder scores from highest to lowest
-            DisplayHighScores(); //update the display
-            game.highScores = highScores; //send these scores to the save file
-            saving.SaveButton(); //save these scores
-        }
-        #endregion
-
         #region compare new score
         /// <summary>
         /// Considers the given score and puts it in array if it's high enough.
@@ -146,20 +135,25 @@ namespace DoodleJump
         /// <param name="_newScore">score amount to be tested</param>
         public void CompareNewScore(float _newScore)
         {
+            //new score set
             scoreSet newScore = new scoreSet(); //new empty score set
             newScore.score = (int)_newScore; //set score as the achieved score
-            newScore.name = "Player"; //set name as "Player", might become customisable in future
+            newScore.name = "Player"; //set name as "Player", will be customisable in future
 
+            //check new score
             for (int i = 0; i < highScores.Length; i++) //highest to lowest
             {
                 if (_newScore > highScores[i].score) //if new score is higher
                 {
                     highScores[9] = newScore; //replace last
-                    break;
+                    break; //exit the for loop
+                    //even if this doesn't exit properly, the new score will only ever take the last position in the array
                 }
             }
 
-            UpdateScores(); //update scores
+            //display scores
+            highScores = OrderScores(highScores); //order the scores
+            DisplayHighScores(); //display the ordered scores
         }
         #endregion
         #endregion

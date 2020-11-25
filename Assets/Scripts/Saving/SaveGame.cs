@@ -6,12 +6,12 @@ namespace DoodleJump.Saving
 {
     public class SaveGame : MonoBehaviour
     {
-        public Scores scores;
+        public ScoresNew scores;
         public GameData game;
         public List<GameData> savedGames;
         private void Awake()
         {
-            scores = FindObjectOfType<Scores>();
+            scores = FindObjectOfType<ScoresNew>();
             game = new GameData(scores);
             GameData.current = game;
         }
@@ -19,10 +19,10 @@ namespace DoodleJump.Saving
         {
             savedGames = SaveLoad.savedGames;
         }
-        public void SaveButton()
+        public void SaveButton(GameData _game)
         {
-            game = new GameData(scores); //get the current scores??
-            SaveLoad.Save(GameData.current); //save the current game data
+            //game = new GameData(scores); //get the current scores??
+            SaveLoad.Save(_game); //save the passed game data
         }
         public void LoadButton()
         {
