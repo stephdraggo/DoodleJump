@@ -16,7 +16,7 @@ namespace DoodleJump.Player
         #region Variables
         //game references
         private GameManager game;
-        private ScoresNew score;
+        private Scores score;
 
         //component references
         private Animator animate;
@@ -44,7 +44,7 @@ namespace DoodleJump.Player
         {
             //connect game
             game = FindObjectOfType<GameManager>();
-            score = FindObjectOfType<ScoresNew>();
+            score = FindObjectOfType<Scores>();
 
             //connect components
             animate = GetComponent<Animator>();

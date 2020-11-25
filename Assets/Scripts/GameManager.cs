@@ -10,7 +10,7 @@ namespace DoodleJump
         #region Variables
         private Saving.SaveGame saving;
         private Menus.MainMenu menus;
-        private ScoresNew scores;
+        private Scores scores;
         private Generation.TrunkManager trunkManager;
         #endregion
         #region Awake
@@ -21,7 +21,7 @@ namespace DoodleJump
         {
             saving = FindObjectOfType<Saving.SaveGame>();
             menus = FindObjectOfType<Menus.MainMenu>();
-            scores = FindObjectOfType<ScoresNew>();
+            scores = FindObjectOfType<Scores>();
             trunkManager = FindObjectOfType<Generation.TrunkManager>();
         }
         #endregion

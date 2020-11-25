@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace DoodleJump
 {
-    public class ScoresNew : MonoBehaviour
+    public class Scores : MonoBehaviour
     {
         #region Variables
         public Saving.GameData game;
