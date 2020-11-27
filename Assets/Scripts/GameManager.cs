@@ -84,7 +84,7 @@ namespace DoodleJump
         /// </summary>
         public void Quit()
         {
-            saving.SaveButton(scores.game); //save high scores, in theory
+            scores.game.Save(scores); //save maybe?
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

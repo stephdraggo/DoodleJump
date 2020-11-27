@@ -12,8 +12,10 @@ namespace DoodleJump.Saving
         private void Awake()
         {
             scores = FindObjectOfType<Scores>();
-            game = new GameData(scores);
-            GameData.current = game;
+        }
+        private void Start()
+        {
+            GameData.current = scores.game;
         }
         private void Update()
         {
@@ -24,17 +26,22 @@ namespace DoodleJump.Saving
             //game = new GameData(scores); //get the current scores??
             SaveLoad.Save(_game); //save the passed game data
         }
-        public void LoadButton()
+        public bool LoadButton()
         {
-            SaveLoad.Load();
-
+           bool isLoaded= SaveLoad.Load();
+            if (!isLoaded)
+            {
+                return isLoaded;
+            }
+            
             if (game.highScores == null)
-                return;
+                return false;
 
             for (int i = 0; i < game.highScores.Length; i++)
             {
                 Debug.Log(game.highScores[i].score); //debug show me what scores are being loaded
             }
+            return isLoaded;
         }
         
         

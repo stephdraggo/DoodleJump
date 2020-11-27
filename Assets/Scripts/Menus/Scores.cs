@@ -7,7 +7,7 @@ namespace DoodleJump
     {
         #region Variables
         public Saving.GameData game;
-        private Saving.SaveGame saving;
+        //private Saving.SaveGame saving;
         private scoreSet[] highScores;
 
         [SerializeField]
@@ -29,8 +29,9 @@ namespace DoodleJump
         /// </summary>
         void Awake()
         {
-            saving = FindObjectOfType<Saving.SaveGame>();
+            //saving = FindObjectOfType<Saving.SaveGame>();
             game = new Saving.GameData(this); //create game data attached to this score class
+            
         }
         #endregion
         #region Start
@@ -44,15 +45,14 @@ namespace DoodleJump
         void Start()
         {
             //get scores
-            if (saving.savedGames.Count>0) //if there is a save file
+            if (game.highScores!=null) //if there are highscores to get
             {
-                saving.LoadButton(); //load the save file
                 highScores = game.highScores; //get the saved scores
             }
             else //if there is no save file
             {
                 DefaultScores(); //generate random scores
-                saving.SaveButton(game); //save these scores
+                game.Save(this); //save these scores
             }
 
             //display scores

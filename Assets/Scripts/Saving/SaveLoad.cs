@@ -28,7 +28,7 @@ namespace DoodleJump.Saving
         /// <summary>
         /// Loads all saved GameData classes from binary
         /// </summary>
-        public static void Load()
+        public static bool Load()
         {
             if (File.Exists(Application.persistentDataPath + "/kittens.jpg"))
             {
@@ -39,6 +39,11 @@ namespace DoodleJump.Saving
                     SaveLoad.savedGames = (List<GameData>)formatter.Deserialize(file);
                     file.Close();
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
