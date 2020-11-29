@@ -106,8 +106,15 @@ namespace DoodleJump
                         localHighIndex = j; //get index of this high score
                     }
                 }
-                tempScores[i] = _scores[localHighIndex]; //set this high score to the current high score position
-                _scores[localHighIndex].score = 0; //reduce the checked score to 0 so it won't show up on the next time around
+                if (localHighIndex != -1)
+                {
+                    tempScores[i] = _scores[localHighIndex]; //set this high score to the current high score position
+                    _scores[localHighIndex].score = 0; //reduce the checked score to 0 so it won't show up on the next time around
+                }
+                else
+                {
+                    Debug.LogError("There are no scores loaded");
+                }
             }
 
             return tempScores; //return ordered array
@@ -154,6 +161,8 @@ namespace DoodleJump
             //display scores
             highScores = OrderScores(highScores); //order the scores
             DisplayHighScores(); //display the ordered scores
+            game.highScores = highScores;
+            Saving.SaveLoad.Save(game);
         }
         #endregion
         #endregion
