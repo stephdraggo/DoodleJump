@@ -12,6 +12,10 @@ namespace DoodleJump
 
         [SerializeField]
         private Text[] scoreNames, scoreValues;
+        [SerializeField]
+        private InputField inputName;
+
+        private string playerName="";
 
         [System.Serializable]
         public struct scoreSet //one block of score
@@ -145,7 +149,14 @@ namespace DoodleJump
             //new score set
             scoreSet newScore = new scoreSet(); //new empty score set
             newScore.score = (int)_newScore; //set score as the achieved score
-            newScore.name = "Player"; //set name as "Player", will be customisable in future
+            if (playerName!="")
+            {
+                newScore.name = playerName; //set name to player's input
+            }
+            else
+            {
+                newScore.name = "Player"; //default
+            }
 
             //check new score
             for (int i = 0; i < highScores.Length; i++) //highest to lowest
@@ -161,8 +172,14 @@ namespace DoodleJump
             //display scores
             highScores = OrderScores(highScores); //order the scores
             DisplayHighScores(); //display the ordered scores
-            game.highScores = highScores;
-            Saving.SaveLoad.Save(game);
+            game.highScores = highScores; //set saved scores
+            Saving.SaveLoad.Save(game); //save the scores
+        }
+        #endregion
+        #region input name
+        public void InputPlayerName()
+        {
+            playerName = inputName.text;
         }
         #endregion
         #endregion
