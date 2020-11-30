@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace DoodleJump.Saving
+﻿namespace DoodleJump.Saving
 {
     [System.Serializable]
     public class GameData
